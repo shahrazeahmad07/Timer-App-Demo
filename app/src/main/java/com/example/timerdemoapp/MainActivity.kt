@@ -8,7 +8,7 @@ import com.example.timerdemoapp.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
-    private val totalTime: Long = 60000
+    private val totalTime: Long = 15000
     private var timePassed: Long = 0
     private var countDownTimer: CountDownTimer? = null
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -18,17 +18,24 @@ class MainActivity : AppCompatActivity() {
 
         binding.tvTimer.text = (totalTime/1000).toString()
         binding.progressBar.max = (totalTime/1000).toInt()
-        binding.progressBar.progress = 100
+        binding.progressBar.progress = binding.progressBar.max
 
         binding.btnStart.setOnClickListener{
             startTimer()
+        }
+
+        binding.btnPause.setOnClickListener {
+            pauseTimer()
+        }
+
+        binding.btnStop.setOnClickListener {
+            resetTimer()
         }
     }
 
     private fun startTimer() {
         if(countDownTimer == null) {
-            binding.progressBar.progress = (timePassed).toInt()
-            countDownTimer = object : CountDownTimer(totalTime - timePassed, 1000) {
+            countDownTimer = object : CountDownTimer(totalTime - timePassed*1000, 1000) {
                 override fun onTick(millisUntilFinished: Long) {
                     timePassed++
                     binding.tvTimer.text = (millisUntilFinished/1000).toString()
@@ -40,5 +47,20 @@ class MainActivity : AppCompatActivity() {
                 }
             }.start()
         }
+    }
+
+    private fun pauseTimer() {
+        if(countDownTimer != null) {
+            countDownTimer?.cancel()
+            countDownTimer = null
+        }
+    }
+
+    private fun resetTimer() {
+        countDownTimer?.cancel()
+        countDownTimer = null
+        binding.tvTimer.text = (totalTime/1000).toString()
+        binding.progressBar.progress = binding.progressBar.max
+        timePassed = 0
     }
 }
