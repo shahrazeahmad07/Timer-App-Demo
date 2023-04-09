@@ -31,6 +31,10 @@ class MainActivity : AppCompatActivity() {
         binding.btnStop.setOnClickListener {
             resetTimer()
         }
+
+        binding.frameLayout.setOnClickListener {
+            Toast.makeText(this, "clicked", Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun startTimer() {
