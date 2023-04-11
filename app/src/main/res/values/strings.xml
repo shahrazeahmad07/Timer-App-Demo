@@ -3,7 +3,7 @@
     <string name="start">Start</string>
     <string name="pause">Pause</string>
     <string name="reset">Reset</string>
-    <string name="enter_timer">Enter Timer</string>
+    <string name="enter_timer">Enter Time (in sec)</string>
     <string name="cancel">Cancel</string>
     <string name="okay">Okay</string>
 </resources>

@@ -85,11 +85,15 @@ class MainActivity : AppCompatActivity() {
             val btnOkay = dialog.findViewById<Button>(R.id.btnOkay)
             btnOkay.setOnClickListener {
                 val etSetTimer = dialog.findViewById<EditText>(R.id.etSetTimer)
-                totalTime = (etSetTimer.text.toString().toLong()) * 1000
-                binding?.tvTimer?.text = (totalTime / 1000).toString()
-                binding?.progressBar?.max = (totalTime / 1000).toInt()
-                binding?.progressBar?.progress = binding?.progressBar?.max!!
-                dialog.dismiss()
+                if (etSetTimer.text.isNotEmpty()) {
+                    totalTime = (etSetTimer.text.toString().toLong()) * 1000
+                    binding?.tvTimer?.text = (totalTime / 1000).toString()
+                    binding?.progressBar?.max = (totalTime / 1000).toInt()
+                    binding?.progressBar?.progress = binding?.progressBar?.max!!
+                    dialog.dismiss()
+                } else {
+                    Toast.makeText(this@MainActivity, "Enter Time First", Toast.LENGTH_SHORT).show()
+                }
             }
             dialog.show()
         }
