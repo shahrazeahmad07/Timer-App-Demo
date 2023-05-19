@@ -117,7 +117,7 @@ class MainActivity : AppCompatActivity() {
                 if (etSetTimer.text.isNotEmpty()) {
                     totalTime = (etSetTimer.text.toString().toLong()) * 1000
                     binding?.tvTimer?.text = (totalTime / 1000).toString()
-                    binding?.progressBar?.max = (totalTime / 1000).toInt()
+                    binding?.progressBar?.max = (totalTime).toInt()
                     binding?.progressBar?.progress = binding?.progressBar?.max!!
                     dialog.dismiss()
                 } else {
