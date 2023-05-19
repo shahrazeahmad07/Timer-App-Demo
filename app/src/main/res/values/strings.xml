@@ -1,9 +1,11 @@
 <resources>
     <string name="app_name">Timer Demo</string>
+
     <string name="start">Start</string>
     <string name="pause">Pause</string>
-    <string name="reset">Reset</string>
+    <string name="reset">Stop and Reset</string>
     <string name="enter_timer">Enter Time (in sec)</string>
     <string name="cancel">Cancel</string>
     <string name="okay">Okay</string>
+    <string name="resume">Resume</string>
 </resources>

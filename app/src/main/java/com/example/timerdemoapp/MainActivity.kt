@@ -14,6 +14,9 @@ import com.example.timerdemoapp.databinding.ActivityMainBinding
 import com.google.android.material.snackbar.Snackbar
 
 class MainActivity : AppCompatActivity() {
+    enum class ButtonActions {
+        PAUSE, START, RESUME
+    }
     private var binding: ActivityMainBinding? = null
     private var totalTime: Long = 15000
     private var timePassed: Long = 0
@@ -21,13 +24,18 @@ class MainActivity : AppCompatActivity() {
 
     private var timeEndMediaPlayer: MediaPlayer? = null
 
+    private var currentButtonAction = ButtonActions.START
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding?.root)
 
-        //! setting default timer settings
+        //! setting defaults
+        if (currentButtonAction == ButtonActions.START) {
+            binding?.btnMain?.text = getString(R.string.start)
+        }
         binding?.tvTimer?.text = (totalTime/1000).toString()
         binding?.progressBar?.max = (totalTime).toInt()
         binding?.progressBar?.progress = binding?.progressBar?.max!!
@@ -38,14 +46,9 @@ class MainActivity : AppCompatActivity() {
         timeEndMediaPlayer?.isLooping = false
 
 
-        //! start timer button
-        binding?.btnStart?.setOnClickListener{
-            startTimer(it)
-        }
-
-        //! pause timer button
-        binding?.btnPause?.setOnClickListener {
-            pauseTimer()
+        //! Main timer button
+        binding?.btnMain?.setOnClickListener{
+            mainButton(it)
         }
 
         //! stop timer button
@@ -56,6 +59,27 @@ class MainActivity : AppCompatActivity() {
         //! set custom time, touch on frame layout showing time
         binding?.frameLayout?.setOnClickListener {
             showSetTimerDialog()
+        }
+    }
+
+    private fun mainButton(view: View) {
+        when(currentButtonAction) {
+            ButtonActions.START -> {
+                startTimer(view)
+                currentButtonAction = ButtonActions.PAUSE
+                binding?.btnMain?.text = getString(R.string.pause)
+            }
+            ButtonActions.PAUSE -> {
+                pauseTimer()
+                currentButtonAction = ButtonActions.RESUME
+                binding?.btnMain?.text = getString(R.string.resume)
+            }
+            ButtonActions.RESUME -> {
+                startTimer(view)
+                currentButtonAction = ButtonActions.PAUSE
+                binding?.btnMain?.text = getString(R.string.pause)
+            }
+            else -> {}
         }
     }
 
@@ -71,6 +95,7 @@ class MainActivity : AppCompatActivity() {
 
                 override fun onFinish() {
                     try {
+                        resetTimer()
                         timeEndMediaPlayer?.start()
                     } catch (e: Exception) {
                         e.printStackTrace()
@@ -95,10 +120,16 @@ class MainActivity : AppCompatActivity() {
 
     //! method for reset timer button
     private fun resetTimer() {
+        // UI portion
+        currentButtonAction = ButtonActions.START
+        binding?.btnMain?.text = getString(R.string.start)
+        binding?.tvTimer?.text = (totalTime/1000).toString()
+        binding?.progressBar?.max = totalTime.toInt()
+        binding?.progressBar?.progress = binding?.progressBar?.max!!
+
+        // Timer Portion
         countDownTimer?.cancel()
         countDownTimer = null
-        binding?.tvTimer?.text = (totalTime/1000).toString()
-        binding?.progressBar?.progress = binding?.progressBar?.max!!
         timePassed = 0
     }
 
@@ -116,9 +147,7 @@ class MainActivity : AppCompatActivity() {
                 val etSetTimer = dialog.findViewById<EditText>(R.id.etSetTimer)
                 if (etSetTimer.text.isNotEmpty()) {
                     totalTime = (etSetTimer.text.toString().toLong()) * 1000
-                    binding?.tvTimer?.text = (totalTime / 1000).toString()
-                    binding?.progressBar?.max = (totalTime).toInt()
-                    binding?.progressBar?.progress = binding?.progressBar?.max!!
+                    resetTimer()
                     dialog.dismiss()
                 } else {
                     Toast.makeText(this@MainActivity, "Enter Time First", Toast.LENGTH_SHORT).show()

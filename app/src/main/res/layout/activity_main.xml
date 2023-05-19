@@ -11,8 +11,8 @@
         android:id="@+id/frameLayout"
         android:layout_width="150dp"
         android:layout_height="150dp"
-        app:layout_constraintBottom_toTopOf="@id/btnStart"
         android:background="@drawable/ripple_effect"
+        app:layout_constraintBottom_toTopOf="@id/btnMain"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -48,28 +48,16 @@
 
 
     <Button
-        android:id="@+id/btnStart"
+        android:id="@+id/btnMain"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/start"
         android:textAllCaps="false"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@id/btnPause"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/frameLayout" />
-
-    <Button
-        android:id="@+id/btnPause"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/pause"
-        android:textAllCaps="false"
-        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@id/btnStop"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btnStart"/>
+        app:layout_constraintTop_toBottomOf="@id/frameLayout" />
 
     <Button
         android:id="@+id/btnStop"
@@ -78,10 +66,10 @@
         android:text="@string/reset"
         android:textAllCaps="false"
         android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@id/btnPause"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btnMain" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
