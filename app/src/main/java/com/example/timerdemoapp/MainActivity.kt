@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity() {
 
         //! setting default timer settings
         binding?.tvTimer?.text = (totalTime/1000).toString()
-        binding?.progressBar?.max = (totalTime/1000).toInt()
+        binding?.progressBar?.max = (totalTime).toInt()
         binding?.progressBar?.progress = binding?.progressBar?.max!!
 
         //! setting timer sound
@@ -62,11 +62,11 @@ class MainActivity : AppCompatActivity() {
     //! method for start timer button
     private fun startTimer(view: View) {
         if(countDownTimer == null) {
-            countDownTimer = object : CountDownTimer(totalTime - timePassed*1000, 1000) {
+            countDownTimer = object : CountDownTimer(totalTime - timePassed, 1000) {
                 override fun onTick(millisUntilFinished: Long) {
-                    timePassed++
+                    timePassed += 1000
                     binding?.tvTimer?.text = (millisUntilFinished/1000).toString()
-                    binding?.progressBar?.progress = (millisUntilFinished/1000).toInt()
+                    binding?.progressBar?.progress = (totalTime-timePassed).toInt()
                 }
 
                 override fun onFinish() {
