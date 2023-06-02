@@ -62,6 +62,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    // calling different actions depending on different timer states
     private fun mainButton(view: View) {
         when(currentButtonAction) {
             ButtonActions.START -> {
@@ -92,7 +93,7 @@ class MainActivity : AppCompatActivity() {
                     binding?.tvTimer?.text = (millisUntilFinished/1000).toString()
                     binding?.progressBar?.progress = (totalTime-timePassed).toInt()
                 }
-
+                // on timer finish
                 override fun onFinish() {
                     try {
                         resetTimer()
