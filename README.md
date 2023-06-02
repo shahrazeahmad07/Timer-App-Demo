@@ -10,3 +10,6 @@ Its a basic demo timer application, built by using built-in CountDownTimer class
 - Stop and Reset Button -> Stops and reset timer and all UI controls to defaults
 - When Timer Ends -> Rings a Tick Sound and reset all UI controls to defaults
 
+## Video Demo
+https://github.com/shahrazeahmad07/Timer-App-Demo/assets/68849516/b089d16a-108d-40e3-9d0f-753aae467fc4
+
