@@ -19,7 +19,9 @@ onFinish() method, this is run when the timer is ended!
 
 Also, to play the buzzer sound, I used MediaPlayer class of android, which is quite a big class with lots of implementations.
 for more info checkout the official documentation of these classes.
+
 CountDownTimer: https://developer.android.com/reference/android/os/CountDownTimer
+
 MediaPlayer: https://developer.android.com/reference/android/media/MediaPlayer
 
 ## Video Demo
